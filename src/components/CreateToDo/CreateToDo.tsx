@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, KeyboardEvent } from 'react';
 import { Input, Button } from 'antd';
 import s from './createTodo.module.scss';
 
@@ -16,9 +16,15 @@ const CreateToDo = ({ addTodo }: CreateToDoProps) => {
         }
     }
 
+    const onAddFromEnter = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.code === 'Enter') {
+            onAddTodo();
+        }
+    }
+
     return (
         <div className={s.item}>
-            <Input value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder='Введите название задачи' />
+            <Input onKeyDown={onAddFromEnter} value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder='Введите название задачи' />
             <Button onClick={onAddTodo} type='primary'>Добавить</Button>
         </div>
     )
